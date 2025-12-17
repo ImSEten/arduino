@@ -21,10 +21,10 @@ void led_lazy_on() {
   }
   for (int i = 0; i <= 255; i++) { // light up
     FastLED.setBrightness(i);
-    FastLED.delay(20);
+    delay(20);
     FastLED.show();
-    ledStatus = true;
   }
+  ledStatus = true;
 }
 
 void led_lazy_off() {
@@ -33,20 +33,20 @@ void led_lazy_off() {
   }
   for (int i = 255; i >= 0; i--) {
     FastLED.setBrightness(i); // 渐灭
-    FastLED.delay(20);
+    delay(10);
     FastLED.show();
-    ledStatus = false;
   }
+  ledStatus = false;
 }
 
 bool person_detect() {
   personValue = digitalRead(PERSON_PIN); // 读取引脚的电平
   if (personValue == HIGH) {
-  Serial.println("person exist"); // 如果电平为高，打印 "高电平"
-  return true;
+    Serial.println("person exist"); // 如果电平为高，打印 "高电平"
+    return true;
   } else {
-  Serial.println("person not exist"); // 如果电平为低，打印 "低电平"
-  return false;
+    Serial.println("person not exist"); // 如果电平为低，打印 "低电平"
+    return false;
   }
 }
 
@@ -63,10 +63,9 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  bool person = person_detect();
-  if (person) { // 有人
+  if (person_detect()) { // 有人
     led_lazy_on();
-    delay(5000); // 等待5s后再检查
+    delay(100); // 等待0.1s后再检查
   } else { // 无人
     led_lazy_off();
     delay(100);
